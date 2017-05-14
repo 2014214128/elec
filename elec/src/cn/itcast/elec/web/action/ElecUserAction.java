@@ -96,8 +96,21 @@ public class ElecUserAction extends BaseAction implements ModelDriven<ElecUserFo
 		 *    * 如果viewflag==null：说明当前操作的是编辑页面
 		 *    * 如果viewflag==1:说明当前操作的是明细页面
 		 */
-		/*String viewflag = elecUserForm.getViewflag();
-		request.setAttribute("viewflag", viewflag);*/
+		String viewflag = elecUserForm.getViewflag();
+		request.setAttribute("viewflag", viewflag);
 		return "edit";
+	}
+	/**  
+	* @Name: delete
+	* @Description: 删除用户信息
+	* @Author: 刘洋（作者）
+	* @Version: V1.00 （版本号）
+	* @Create Date: 2011-12-26 （创建日期）
+	* @Parameters: 无
+	* @Return: String delete 跳转到userIndex.jsp
+	*/
+	public String delete() {
+		elecUserService.deleteElecUser(elecUserForm);
+		return "delete";
 	}
 }

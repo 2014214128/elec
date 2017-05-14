@@ -20,10 +20,10 @@
 			theForm.userName.focus();
 			return false;
 		}
-	    if(theForm.jctId.value=="alljct")
+	    if(theForm.jctID.value=="alljct")
 		{
 			alert("请选择所属单位");
-			theForm.jctId.focus();
+			theForm.jctID.focus();
 			return false;
 		}
 	
@@ -68,7 +68,7 @@
 		 
 	   document.Form1.action="system/elecUserAction_save.do";
 	   document.Form1.submit();
-	   refreshOpener();
+	   //refreshOpener();
 	}
 	
 </script>
@@ -83,7 +83,12 @@
 
 	    <tr>
 			<td class="ta_01" align="center" colSpan="4" background="${pageContext.request.contextPath }/images/b-info.gif">
-			 <font face="宋体" size="2"><strong>添加用户</strong></font>
+			 <s:if test="#request.viewflag == null">
+			 	<font face="宋体" size="2"><strong>编辑用户</strong></font>
+			 </s:if>
+			 <s:else>
+			 	<font face="宋体" size="2"><strong>查看明细</strong></font>
+			 </s:else>
 			</td>
 	    </tr>
 	     <tr>
@@ -184,7 +189,9 @@
 		</TR>
 		<tr>
 			<td class="ta_01" style="WIDTH: 100%" align="center" bgColor="#f5fafe" colSpan="4">
+			<s:if test="#request.viewflag == null">
 				<input type="button" name="BT_Submit" value="保存"  style="font-size:12px; color:black; height=22;width=55"   onClick="check_null()">
+			</s:if>
 			 <FONT face="宋体">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT>
 				<input style="font-size:12px; color:black; height=22;width=55"  type="button" value="关闭"  name="Reset1"  onClick="window.close()">
 			</td>

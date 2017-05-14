@@ -17,4 +17,9 @@ public interface IElecUserService {
 
 	ElecUserForm findElecUser(ElecUserForm elecUserForm);
 
+	void deleteElecUser(ElecUserForm elecUserForm);
+
+
+	String checkLoginName(String loginName);
+
 }

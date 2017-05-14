@@ -53,8 +53,13 @@
 				<param name="actionName">elecUserAction_home</param>
 				<param name="namespace">/system</param>
 			</result>
+			
 			<result name="edit">
 				/WEB-INF/page/system/userEdit.jsp
+			</result>
+			<result name="delete" type="redirectAction">
+				<param name="actionName">elecUserAction_home</param>
+				<param name="namespace">/system</param>
 			</result>
 		</action>
 		<action name="elecTextAction_*" class="cn.itcast.elec.web.action.ElecTextAction" method="{1}">

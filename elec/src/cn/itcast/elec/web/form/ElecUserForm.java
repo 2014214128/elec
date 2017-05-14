@@ -25,6 +25,7 @@ public class ElecUserForm implements java.io.Serializable {
 	private String onDutyDate;
 	private String offDutyDate;
 	private String remark;
+	private String viewflag;
 	public String getUserID() {
 		return userID;
 	}
@@ -115,6 +116,14 @@ public class ElecUserForm implements java.io.Serializable {
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
+	
+	
+	public String getViewflag() {
+		return viewflag;
+	}
+	public void setViewflag(String viewflag) {
+		this.viewflag = viewflag;
+	}
 	@Override
 	public String toString() {
 		return "ElecUserForm [userID=" + userID + ", jctID=" + jctID
@@ -125,10 +134,6 @@ public class ElecUserForm implements java.io.Serializable {
 				+ ", mobile=" + mobile + ", isDuty=" + isDuty + ", onDutyDate="
 				+ onDutyDate + ", offDutyDate=" + offDutyDate + ", remark="
 				+ remark + "]";
-	}
-	public String getViewflag() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	

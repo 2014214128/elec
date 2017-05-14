@@ -64,8 +64,12 @@ public class CommonDAOImpl<T> extends HibernateDaoSupport implements ICommonDAO<
 		
 		String hql = "from "+entity.getSimpleName()+" o where 1=1 ";
 		//组织排序条件
-		String hqlOrderBy = orderByCondition(orderBy);
-		hqlOrderBy.substring(0, hqlOrderBy.length()-1);
+		String hqlOrderBy = "";
+		if(orderBy != null) {
+			hqlOrderBy = orderByCondition(orderBy);
+			hqlOrderBy.substring(0, hqlOrderBy.length()-1);
+		}
+		
 		hql = hql + hqlWhere + hqlOrderBy;
 		final String qHql = hql;
 		@SuppressWarnings("unchecked")

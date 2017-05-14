@@ -76,6 +76,47 @@
 		 document.Form1.submit();	 		 
 		 //refreshOpener();
 	}
+	//使用ajax进行异步校验，校验登录名在数据库是否存在
+	//创建ajax引擎
+	function createXmlHttpRequest(){
+	   var xmlHttp;
+	   try{    //Firefox, Opera 8.0+, Safari
+	           xmlHttp=new XMLHttpRequest();
+	    }catch (e){
+	           try{    //Internet Explorer
+	                  xmlHttp=new ActiveXObject("Msxml2.XMLHTTP");
+	            }catch (e){
+	                  try{
+	                          xmlHttp=new ActiveXObject("Microsoft.XMLHTTP");
+	                  }catch (e){}  
+	           }
+	    }
+	   return xmlHttp;
+	 }
+	 function checkLoginName(){
+	 	var loginName = document.getElementById("loginName").value;
+	 	//第一步：创建ajax引擎
+	 	var xmlHttp = createXmlHttpRequest();
+	 	//第二步：事件处理函数，实质上相当一个监听，监听服务器与客户端的连接状态
+	 	xmlHttp.onreadystatechange = function(){
+	 		if(xmlHttp.readyState==4){
+	 			if(xmlHttp.status==200){
+	 				var data = xmlHttp.responseText;
+	 				//alert(data);
+	 				if(data==1){
+	 					alert("当前输入的登录名["+loginName+"]已被其他人占用，请重新输入！");
+	 					document.getElementById("loginName").value = "";
+	 					document.getElementById("loginName").focus();
+	 				}
+	 			}
+	 		}
+	 	}
+	 	//第三步：与后台服务器建立一个连接
+	 	xmlHttp.open("post","../../checkLoginName",true);
+	 	xmlHttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+	 	//第四步：发送请求的参数
+	 	xmlHttp.send("loginName="+loginName);
+	 }
 	
    </script>
   </head>
@@ -94,7 +135,7 @@
 	     <tr>
 	         <td align="center" bgColor="#f5fafe" class="ta_01">登&nbsp;&nbsp;录&nbsp;&nbsp;名：<font color="#FF0000">*</font></td>
 	         <td class="ta_01" bgColor="#ffffff">
-	         	<s:textfield name="loginName" id="loginName" maxlength="25" size="20"></s:textfield>
+	         	<s:textfield name="loginName" id="loginName" maxlength="25" size="20" onblur="checkLoginName()"></s:textfield>
 	          </td>
 	         <td width="18%" align="center" bgColor="#f5fafe" class="ta_01">用户姓名：<font color="#FF0000">*</font></td>
 	         <td class="ta_01" bgColor="#ffffff">
@@ -190,7 +231,7 @@
 		<tr>
 			<td class="ta_01" style="WIDTH: 100%" align="center" bgColor="#f5fafe" colSpan="4">
 				<input type="button" name="BT_Submit" value="保存"  style="font-size:12px; color:black; height=22;width=55"   onClick="check_null()">
-			 <FONT face="宋体">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT>
+			 	<FONT face="宋体">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT>
 				<input style="font-size:12px; color:black; height=22;width=55"  type="button" value="关闭"  name="Reset1"  onClick="window.close()">
 			</td>
 		</tr>

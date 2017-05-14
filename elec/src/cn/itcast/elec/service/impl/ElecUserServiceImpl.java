@@ -112,13 +112,24 @@ public class ElecUserServiceImpl implements IElecUserService {
 	@Override
 	public void saveElecUser(ElecUserForm elecUserForm) {
 		ElecUser elecUser = this.elecUserVOToPO(elecUserForm);
-		elecUserDAO.save(elecUser);
+		if(elecUserForm.getUserID() != null && elecUserForm.getUserID().equals("")) {
+			elecUserDAO.update(elecUser);
+		} else {
+			elecUserDAO.save(elecUser);
+		}
+		
 	}
 
 	@SuppressWarnings("deprecation")
 	private ElecUser elecUserVOToPO(ElecUserForm elecUserForm) {
 		ElecUser elecUser = new ElecUser();
 		if(elecUserForm != null) {
+			if(elecUserForm.getUserID() != null && !elecUserForm.getUserID().equals("")) {
+				elecUser.setUserID(elecUserForm.getUserID());
+				if(elecUserForm.getOffDutyDate() != null && !elecUserForm.getOffDutyDate().equals("")) {
+					elecUser.setOffDutyDate(StringHelper.stringConvertDate(elecUserForm.getOffDutyDate()));
+				}
+			}
 			elecUser.setJctID(elecUserForm.getJctID());
 			elecUser.setUserName(elecUserForm.getUserName());
 			elecUser.setLoginName(elecUserForm.getLoginName());
@@ -170,6 +181,27 @@ public class ElecUserServiceImpl implements IElecUserService {
 			elecUserForm.setRemark(elecUser.getRemark());
 		}
 		return elecUserForm;
+	}
+
+	@Override
+	@Transactional(isolation=Isolation.DEFAULT,propagation=Propagation.REQUIRED,readOnly=false)
+	public void deleteElecUser(ElecUserForm elecUserForm) {
+		String userID = elecUserForm.getUserID();
+		elecUserDAO.deleteObjectByIds(userID);
+	}
+
+	@Override
+	public String checkLoginName(String loginName) {
+		String hqlWhere = " and o.loginName = ? ";
+		Object[] params = {loginName};
+		List<ElecUser> list = elecUserDAO.findCollectionByConditionNoPage(hqlWhere, params, null);
+		String checkflag = "";
+		if(list != null && list.size() > 0) {
+			checkflag = "1";
+		}else {
+			checkflag = "2";
+		}
+		return checkflag;
 	}
 	
 	
