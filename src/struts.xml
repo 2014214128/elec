@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<struts>
+	<!-- 配置action的访问路径为.do的形式 -->
+	<constant name="struts.action.extension" value="do"></constant>
+	<!-- 配置struts的开发模式 -->
+	<constant name="struts.devMode" value="true"></constant>
+	<!-- 配置struts的简单模式 -->
+	<constant name="struts.ui.theme" value="simple"></constant>
+	
+	 <constant name="struts.enable.DynamicMethodInvocation" value="true" />
+	<package name="system" namespace="/system" extends="struts-default">
+		<!-- 首页登录 -->
+	    <action name="elecMenuAction_*" class="cn.itcast.elec.web.action.ElecMenuAction" method="{1}">
+	    	<result name="home">
+	    		/WEB-INF/page/menu/home.jsp
+	    	</result>
+	    	<!-- 处理验证登录失败，跳转到index.jsp -->
+	    	<result name="error">
+	    		/WEB-INF/page/menu/index.jsp
+	    	</result>
+	    	<result name="title">
+	    		/WEB-INF/page/menu/title.jsp
+	    	</result>
+	    	<result name="left">
+	    		/WEB-INF/page/menu/left.jsp
+	    	</result>
+	    	<result name="change1">
+	    		/WEB-INF/page/menu/change1.jsp
+	    	</result>
+	    	<result name="loading">
+	    		/WEB-INF/page/menu/loading.jsp
+	    	</result>
+	    	<result name="alermJX">
+	    		/WEB-INF/page/menu/alermJX.jsp
+	    	</result>
+	    	<result name="alermSB">
+	    		/WEB-INF/page/menu/alermSB.jsp
+	    	</result>
+	    	<result name="alermXZ">
+	    		/WEB-INF/page/menu/alermXZ.jsp
+	    	</result>
+	    	<result name="alermYS">
+	    		/WEB-INF/page/menu/alermYS.jsp
+	    	</result>
+	    	<result name="alermZD">
+	    		/WEB-INF/page/menu/alermZD.jsp
+	    	</result>
+	    	<result name="logout">
+	    		/WEB-INF/page/menu/index.jsp
+	    	</result>
+	    </action>
+		<!-- 代办事宜 -->
+		<action name="elecCommonMsgAction_*" class="cn.itcast.elec.web.action.ElecCommonMsgAction" method="{1}">
+			<result name="home">
+				/WEB-INF/page/system/actingIndex.jsp
+			</result>
+			<result name="save" type="redirectAction">
+				<param name="namespace">/system</param>
+				<param name="actionName">elecCommonMsgAction_home.do</param>
+			</result>
+		</action>
+		<!-- 数据字典 -->
+		<action name="elecSystemDDLAction_*" class="cn.itcast.elec.web.action.ElecSystemDDLAction" method="{1}">
+			<result name="home">
+				/WEB-INF/page/system/dictionaryIndex.jsp
+			</result>
+			<result name="edit">
+				/WEB-INF/page/system/dictionaryEdit.jsp
+			</result>
+			<result name="save" type="redirectAction"> 
+				<param name="actionName">elecSystemDDLAction_home</param>
+				<param name="namespace">/system</param>
+			</result>
+		</action>
+		<!-- 用户管理 -->
+		<action name="elecUserAction_*" class="cn.itcast.elec.web.action.ElecUserAction" method="{1}">
+			<result name="home">
+				/WEB-INF/page/system/userIndex.jsp
+			</result>	
+			<result name="userList">
+				/WEB-INF/page/system/userList.jsp
+			</result>
+			<result name="export">
+				/WEB-INF/page/system/userIndex.jsp
+			</result>
+			<result name="importpage">
+				/WEB-INF/page/system/userImport.jsp
+			</result>
+			<result name="importdata">
+				/WEB-INF/page/system/userImport.jsp
+			</result>
+			<result name="chart">
+				/WEB-INF/page/system/userReport.jsp
+			</result>
+			<result name="add">
+				/WEB-INF/page/system/userAdd.jsp
+			</result>
+			<result name="save" type="redirectAction">
+				<param name="actionName">elecUserAction_home</param>
+				<param name="namespace">/system</param>
+			</result>
+			
+			<result name="edit">
+				/WEB-INF/page/system/userEdit.jsp
+			</result>
+			<result name="delete" type="redirectAction">
+				<param name="actionName">elecUserAction_home</param>
+				<param name="namespace">/system</param>
+			</result>
+		</action>
+		<!-- 角色管理 -->
+		<action name="elecRoleAction_*" class="cn.itcast.elec.web.action.ElecRoleAction" method="{1}">
+			<result name="home">
+				/WEB-INF/page/system/roleIndex.jsp
+			</result>
+			<result name="edit">
+				/WEB-INF/page/system/roleEdit.jsp
+			</result>	
+			<result name="save" type="redirectAction">
+				<param name="namespace">/system</param>
+				<param name="actionName">elecRoleAction_home</param>
+			</result>	
+		</action>
+		<!--日志管理-->
+		<action name="elecLogAction_*" class="cn.itcast.elec.web.action.ElecLogAction" method="{1}">
+			<result name="home">
+				/WEB-INF/page/system/logIndex.jsp
+			</result>
+			<result name="delete" type="redirectAction">
+				<param name="namespace">/system</param>
+				<param name="actionName">elecLogAction_home</param>
+			</result>
+		</action>
+		<action name="elecTextAction_*" class="cn.itcast.elec.web.action.ElecTextAction" method="{1}">
+			<result name="save">
+				/system/textAdd.jsp
+			</result>
+		</action>
+	</package>
+</struts>
